@@ -21,7 +21,7 @@ import Routes from '../../../../../constants/navigation/Routes';
 import { strings } from '../../../../../../locales/i18n';
 import { ELIGIBILITY_FAILED_MODAL_TEST_IDS } from './EligibilityFailedModal.testIds';
 
-const SUPPORT_URL = 'https://support.metamask.io';
+const SUPPORT_URL = 'https://support.metamask.io?utm_source=mobile_app';
 
 export const createEligibilityFailedModalNavigationDetails =
   createNavigationDetails(
