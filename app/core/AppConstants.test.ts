@@ -2,12 +2,12 @@ import AppConstants from './AppConstants';
 
 describe('AppConstants', () => {
   describe('URLs with UTM parameters', () => {
-    it('should include utm_source=mobile_app in PROFILE_SYNC', () => {
+    it('includes utm_source=mobile_app in PROFILE_SYNC', () => {
       expect(AppConstants.URLS.PROFILE_SYNC).toContain('support.metamask.io');
       expect(AppConstants.URLS.PROFILE_SYNC).toContain('utm_source=mobile_app');
     });
 
-    it('should include utm_source=mobile_app in CONNECTIVITY_ISSUES', () => {
+    it('includes utm_source=mobile_app in CONNECTIVITY_ISSUES', () => {
       expect(AppConstants.URLS.CONNECTIVITY_ISSUES).toContain(
         'support.metamask.io',
       );
@@ -16,19 +16,19 @@ describe('AppConstants', () => {
       );
     });
 
-    it('should include utm_source=mobile_app in SECURITY', () => {
+    it('includes utm_source=mobile_app in SECURITY', () => {
       expect(AppConstants.URLS.SECURITY).toContain('support.metamask.io');
       expect(AppConstants.URLS.SECURITY).toContain('utm_source=mobile_app');
     });
 
-    it('should include utm_source=mobile_app in TOKEN_BALANCE', () => {
+    it('includes utm_source=mobile_app in TOKEN_BALANCE', () => {
       expect(AppConstants.URLS.TOKEN_BALANCE).toContain('support.metamask.io');
       expect(AppConstants.URLS.TOKEN_BALANCE).toContain(
         'utm_source=mobile_app',
       );
     });
 
-    it('should include utm_source=mobile_app in TESTNET_ETH_SCAMS', () => {
+    it('includes utm_source=mobile_app in TESTNET_ETH_SCAMS', () => {
       expect(AppConstants.URLS.TESTNET_ETH_SCAMS).toContain(
         'support.metamask.io',
       );
@@ -37,7 +37,7 @@ describe('AppConstants', () => {
       );
     });
 
-    it('should include utm_source=mobile_app in PRIVACY_BEST_PRACTICES', () => {
+    it('includes utm_source=mobile_app in PRIVACY_BEST_PRACTICES', () => {
       expect(AppConstants.URLS.PRIVACY_BEST_PRACTICES).toContain(
         'support.metamask.io',
       );
@@ -46,19 +46,19 @@ describe('AppConstants', () => {
       );
     });
 
-    it('should include utm_source=mobile_app in SMART_TXS', () => {
+    it('includes utm_source=mobile_app in SMART_TXS', () => {
       expect(AppConstants.URLS.SMART_TXS).toContain('support.metamask.io');
       expect(AppConstants.URLS.SMART_TXS).toContain('utm_source=mobile_app');
     });
 
-    it('should include utm_source=mobile_app in SMART_ACCOUNTS', () => {
+    it('includes utm_source=mobile_app in SMART_ACCOUNTS', () => {
       expect(AppConstants.URLS.SMART_ACCOUNTS).toContain('support.metamask.io');
       expect(AppConstants.URLS.SMART_ACCOUNTS).toContain(
         'utm_source=mobile_app',
       );
     });
 
-    it('should include utm_source=mobile_app in ADD_SOLANA_ACCOUNT_PRIVACY_POLICY', () => {
+    it('includes utm_source=mobile_app in ADD_SOLANA_ACCOUNT_PRIVACY_POLICY', () => {
       expect(AppConstants.URLS.ADD_SOLANA_ACCOUNT_PRIVACY_POLICY).toContain(
         'support.metamask.io',
       );
@@ -67,7 +67,7 @@ describe('AppConstants', () => {
       );
     });
 
-    it('should include utm_source=mobile_app in MULTICHAIN_ACCOUNTS', () => {
+    it('includes utm_source=mobile_app in MULTICHAIN_ACCOUNTS', () => {
       expect(AppConstants.URLS.MULTICHAIN_ACCOUNTS).toContain(
         'support.metamask.io',
       );
@@ -78,7 +78,7 @@ describe('AppConstants', () => {
   });
 
   describe('Community URLs without UTM', () => {
-    it('should have WHY_TRANSACTION_TAKE_TIME without UTM (community URL)', () => {
+    it('has WHY_TRANSACTION_TAKE_TIME without UTM (community URL)', () => {
       expect(AppConstants.URLS.WHY_TRANSACTION_TAKE_TIME).toContain(
         'community.metamask.io',
       );
@@ -87,24 +87,24 @@ describe('AppConstants', () => {
       );
     });
 
-    it('should have WHAT_IS_SRP without UTM (community URL)', () => {
+    it('has WHAT_IS_SRP without UTM (community URL)', () => {
       expect(AppConstants.URLS.WHAT_IS_SRP).toContain('community.metamask.io');
       expect(AppConstants.URLS.WHAT_IS_SRP).not.toContain('utm_source');
     });
   });
 
   describe('Policy URLs without UTM', () => {
-    it('should have TERMS_OF_USE without UTM', () => {
+    it('has TERMS_OF_USE without UTM', () => {
       expect(AppConstants.URLS.TERMS_OF_USE).toContain('metamask.io');
       expect(AppConstants.URLS.TERMS_OF_USE).not.toContain('utm_source');
     });
 
-    it('should have PRIVACY_POLICY without UTM', () => {
+    it('has PRIVACY_POLICY without UTM', () => {
       expect(AppConstants.URLS.PRIVACY_POLICY).toContain('consensys.io');
       expect(AppConstants.URLS.PRIVACY_POLICY).not.toContain('utm_source');
     });
 
-    it('should have STAKING_RISK_DISCLOSURE without UTM', () => {
+    it('has STAKING_RISK_DISCLOSURE without UTM', () => {
       expect(AppConstants.URLS.STAKING_RISK_DISCLOSURE).toContain(
         'consensys.io',
       );
@@ -113,7 +113,7 @@ describe('AppConstants', () => {
       );
     });
 
-    it('should have EARN_RISK_DISCLOSURE without UTM', () => {
+    it('has EARN_RISK_DISCLOSURE without UTM', () => {
       expect(AppConstants.URLS.EARN_RISK_DISCLOSURE).toContain('consensys.io');
       expect(AppConstants.URLS.EARN_RISK_DISCLOSURE).not.toContain(
         'utm_source',
@@ -135,13 +135,13 @@ describe('AppConstants', () => {
       AppConstants.URLS.MULTICHAIN_ACCOUNTS,
     ];
 
-    it('should have valid URL format for all support URLs', () => {
+    it('has valid URL format for all support URLs', () => {
       supportUrls.forEach((url) => {
         expect(() => new URL(url)).not.toThrow();
       });
     });
 
-    it('should have HTTPS protocol for all support URLs', () => {
+    it('has HTTPS protocol for all support URLs', () => {
       supportUrls.forEach((url) => {
         expect(url).toMatch(/^https:\/\//);
       });

@@ -17,64 +17,64 @@ import {
 
 describe('URL Constants', () => {
   describe('Support URLs with UTM parameters', () => {
-    it('should include utm_source=mobile_app in SRP_GUIDE_URL', () => {
+    it('includes utm_source=mobile_app in SRP_GUIDE_URL', () => {
       expect(SRP_GUIDE_URL).toContain('support.metamask.io');
       expect(SRP_GUIDE_URL).toContain('utm_source=mobile_app');
     });
 
-    it('should include utm_source=mobile_app in NON_CUSTODIAL_WALLET_URL', () => {
+    it('includes utm_source=mobile_app in NON_CUSTODIAL_WALLET_URL', () => {
       expect(NON_CUSTODIAL_WALLET_URL).toContain('support.metamask.io');
       expect(NON_CUSTODIAL_WALLET_URL).toContain('utm_source=mobile_app');
     });
 
-    it('should include utm_source=mobile_app in KEEP_SRP_SAFE_URL', () => {
+    it('includes utm_source=mobile_app in KEEP_SRP_SAFE_URL', () => {
       expect(KEEP_SRP_SAFE_URL).toContain('support.metamask.io');
       expect(KEEP_SRP_SAFE_URL).toContain('utm_source=mobile_app');
     });
 
-    it('should include utm_source=mobile_app in PRIVATE_KEY_GUIDE_URL', () => {
+    it('includes utm_source=mobile_app in PRIVATE_KEY_GUIDE_URL', () => {
       expect(PRIVATE_KEY_GUIDE_URL).toContain('support.metamask.io');
       expect(PRIVATE_KEY_GUIDE_URL).toContain('utm_source=mobile_app');
     });
 
-    it('should include utm_source=mobile_app in LEARN_MORE_URL', () => {
+    it('includes utm_source=mobile_app in LEARN_MORE_URL', () => {
       expect(LEARN_MORE_URL).toContain('support.metamask.io');
       expect(LEARN_MORE_URL).toContain('utm_source=mobile_app');
     });
 
-    it('should include utm_source=mobile_app in SIMULATION_DETALS_ARTICLE_URL', () => {
+    it('includes utm_source=mobile_app in SIMULATION_DETALS_ARTICLE_URL', () => {
       expect(SIMULATION_DETALS_ARTICLE_URL).toContain('support.metamask.io');
       expect(SIMULATION_DETALS_ARTICLE_URL).toContain('utm_source=mobile_app');
     });
 
-    it('should include utm_source=mobile_app in TOKEN_APPROVAL_SPENDING_CAP', () => {
+    it('includes utm_source=mobile_app in TOKEN_APPROVAL_SPENDING_CAP', () => {
       expect(TOKEN_APPROVAL_SPENDING_CAP).toContain('support.metamask.io');
       expect(TOKEN_APPROVAL_SPENDING_CAP).toContain('utm_source=mobile_app');
     });
 
-    it('should include utm_source=mobile_app in CONNECTING_TO_A_DECEPTIVE_SITE', () => {
+    it('includes utm_source=mobile_app in CONNECTING_TO_A_DECEPTIVE_SITE', () => {
       expect(CONNECTING_TO_A_DECEPTIVE_SITE).toContain('support.metamask.io');
       expect(CONNECTING_TO_A_DECEPTIVE_SITE).toContain('utm_source=mobile_app');
     });
 
-    it('should include utm_source=mobile_app in CONNECTING_TO_DEPRECATED_NETWORK', () => {
+    it('includes utm_source=mobile_app in CONNECTING_TO_DEPRECATED_NETWORK', () => {
       expect(CONNECTING_TO_DEPRECATED_NETWORK).toContain('support.metamask.io');
       expect(CONNECTING_TO_DEPRECATED_NETWORK).toContain(
         'utm_source=mobile_app',
       );
     });
 
-    it('should include utm_source=mobile_app in HOWTO_MANAGE_METAMETRICS', () => {
+    it('includes utm_source=mobile_app in HOWTO_MANAGE_METAMETRICS', () => {
       expect(HOWTO_MANAGE_METAMETRICS).toContain('support.metamask.io');
       expect(HOWTO_MANAGE_METAMETRICS).toContain('utm_source=mobile_app');
     });
 
-    it('should include utm_source=mobile_app in ADD_CUSTOM_NETWORK_ARTCILE', () => {
+    it('includes utm_source=mobile_app in ADD_CUSTOM_NETWORK_ARTCILE', () => {
       expect(ADD_CUSTOM_NETWORK_ARTCILE).toContain('support.metamask.io');
       expect(ADD_CUSTOM_NETWORK_ARTCILE).toContain('utm_source=mobile_app');
     });
 
-    it('should include utm_source=mobile_app in HOW_TO_MANAGE_METRAMETRICS_SETTINGS', () => {
+    it('includes utm_source=mobile_app in HOW_TO_MANAGE_METRAMETRICS_SETTINGS', () => {
       expect(HOW_TO_MANAGE_METRAMETRICS_SETTINGS).toContain(
         'support.metamask.io',
       );
@@ -85,12 +85,12 @@ describe('URL Constants', () => {
   });
 
   describe('Community and other URLs', () => {
-    it('should have WHY_TRANSACTION_TAKE_TIME_URL without UTM (community URL)', () => {
+    it('has WHY_TRANSACTION_TAKE_TIME_URL without UTM (community URL)', () => {
       expect(WHY_TRANSACTION_TAKE_TIME_URL).toContain('community.metamask.io');
       expect(WHY_TRANSACTION_TAKE_TIME_URL).not.toContain('utm_source');
     });
 
-    it('should have CONSENSYS_PRIVACY_POLICY without UTM', () => {
+    it('has CONSENSYS_PRIVACY_POLICY without UTM', () => {
       expect(CONSENSYS_PRIVACY_POLICY).toContain('consensys.net');
       expect(CONSENSYS_PRIVACY_POLICY).not.toContain('utm_source');
     });
@@ -112,13 +112,13 @@ describe('URL Constants', () => {
       HOW_TO_MANAGE_METRAMETRICS_SETTINGS,
     ];
 
-    it('should have valid URL format for all support URLs', () => {
+    it('has valid URL format for all support URLs', () => {
       supportUrls.forEach((url) => {
         expect(() => new URL(url)).not.toThrow();
       });
     });
 
-    it('should have HTTPS protocol for all support URLs', () => {
+    it('has HTTPS protocol for all support URLs', () => {
       supportUrls.forEach((url) => {
         expect(url).toMatch(/^https:\/\//);
       });
