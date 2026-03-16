@@ -82,6 +82,7 @@ const PredictMarketDetailsActions = memo(
                   size={ButtonSize.Lg}
                   isFullWidth
                   style={tw.style('flex-1 bg-success-muted')}
+                  accessibilityLabel={`${firstOpenOutcome?.tokens[0].title} • ${yesPercentage}¢`}
                   onPress={() =>
                     onBuyPress(
                       firstOpenOutcome?.tokens[0] ??
@@ -101,6 +102,7 @@ const PredictMarketDetailsActions = memo(
                   size={ButtonSize.Lg}
                   isFullWidth
                   style={tw.style('flex-1 bg-error-muted')}
+                  accessibilityLabel={`${firstOpenOutcome?.tokens[1].title} • ${100 - yesPercentage}¢`}
                   onPress={() =>
                     onBuyPress(
                       firstOpenOutcome?.tokens[1] ??
