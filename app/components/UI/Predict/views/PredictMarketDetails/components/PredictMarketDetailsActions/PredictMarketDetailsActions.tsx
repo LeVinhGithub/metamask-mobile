@@ -78,11 +78,11 @@ const PredictMarketDetailsActions = memo(
                 twClassName="w-full mt-4 gap-3"
               >
                 <Button
+                  testID={PredictMarketDetailsSelectorsIDs.OUTCOME_YES_BUTTON}
                   variant={ButtonVariant.Secondary}
                   size={ButtonSize.Lg}
                   isFullWidth
                   style={tw.style('flex-1 bg-success-muted')}
-                  accessibilityLabel={`${firstOpenOutcome?.tokens[0].title} • ${yesPercentage}¢`}
                   onPress={() =>
                     onBuyPress(
                       firstOpenOutcome?.tokens[0] ??
@@ -98,11 +98,11 @@ const PredictMarketDetailsActions = memo(
                   </Text>
                 </Button>
                 <Button
+                  testID={PredictMarketDetailsSelectorsIDs.OUTCOME_NO_BUTTON}
                   variant={ButtonVariant.Secondary}
                   size={ButtonSize.Lg}
                   isFullWidth
                   style={tw.style('flex-1 bg-error-muted')}
-                  accessibilityLabel={`${firstOpenOutcome?.tokens[1].title} • ${100 - yesPercentage}¢`}
                   onPress={() =>
                     onBuyPress(
                       firstOpenOutcome?.tokens[1] ??

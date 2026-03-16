@@ -75,12 +75,11 @@ class PredictDetailsPage {
   }
 
   async tapOpenPositionValue(): Promise<void> {
-    // Use regex to match both "Celtics\n83¢" and "Celtics • 83¢" formats
-    const celticsButton = (await Matchers.getElementByText(
-      /Celtics[\s•\n]*83¢/,
+    const yesButton = (await Matchers.getElementByID(
+      PredictMarketDetailsSelectorsIDs.OUTCOME_YES_BUTTON,
     )) as unknown as DetoxElement;
 
-    await Gestures.waitAndTap(celticsButton, {
+    await Gestures.waitAndTap(yesButton, {
       elemDescription: 'Celtics outcome button',
     });
   }
