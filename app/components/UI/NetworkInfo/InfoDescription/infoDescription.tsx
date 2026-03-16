@@ -3,6 +3,7 @@ import { View, Text, Linking, StyleSheet } from 'react-native';
 import { strings } from '../../../../../locales/i18n';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../../../util/theme';
+import { CUSTOM_NETWORKS_GUIDE_URL } from '../../../../constants/urls';
 
 const createStyles = (colors: {
   background: { default: string };
@@ -54,7 +55,7 @@ const Description = (props: DescriptionProps) => {
 
   const handlePress = useCallback(() => {
     if (number === 2) {
-      Linking.openURL(strings('network_information.learn_more_url'));
+      Linking.openURL(CUSTOM_NETWORKS_GUIDE_URL);
     } else {
       onClose?.();
       navigation.navigate('AddAsset', { assetType: 'token' });

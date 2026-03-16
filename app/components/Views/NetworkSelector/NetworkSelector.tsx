@@ -110,6 +110,7 @@ import { getGasFeesSponsoredNetworkEnabled } from '../../../selectors/featureFla
 import TagColored, {
   TagColor,
 } from '../../../component-library/components-temp/TagColored';
+import { UNKNOWN_NETWORK_RISKS_URL } from '../../../constants/urls';
 
 interface NetworkSelectorProps {
   route: RouteProp<RootStackParamList, 'NetworkSelector'>;
@@ -322,7 +323,7 @@ const NetworkSelector = ({ route }: NetworkSelectorProps) => {
   };
 
   const goToLearnMore = () => {
-    Linking.openURL(strings('networks.learn_more_url'));
+    Linking.openURL(UNKNOWN_NETWORK_RISKS_URL);
   };
 
   const filterNetworksByName = (

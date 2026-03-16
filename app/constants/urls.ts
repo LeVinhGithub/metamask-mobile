@@ -93,6 +93,10 @@ export const LINEA_FAUCET = 'https://www.infura.io/faucet/linea';
 // Add custom network
 export const ADD_CUSTOM_NETWORK_ARTCILE =
   'https://support.metamask.io/networks-and-sidechains/managing-networks/verifying-custom-network-information/?utm_source=mobile_app';
+export const CUSTOM_NETWORKS_GUIDE_URL =
+  'https://support.metamask.io/networks-and-sidechains/managing-networks/user-guide-custom-networks-and-sidechains/?utm_source=mobile_app';
+export const UNKNOWN_NETWORK_RISKS_URL =
+  'https://support.metamask.io/networks-and-sidechains/managing-networks/the-risks-of-connecting-to-an-unknown-network/?utm_source=mobile_app';
 
 export const LEDGER_SUPPORT_LINK =
   'https://support.ledger.com/article/16748796611613-zd';

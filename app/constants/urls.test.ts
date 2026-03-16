@@ -13,6 +13,8 @@ import {
   HOW_TO_MANAGE_METRAMETRICS_SETTINGS,
   WHY_TRANSACTION_TAKE_TIME_URL,
   CONSENSYS_PRIVACY_POLICY,
+  CUSTOM_NETWORKS_GUIDE_URL,
+  UNKNOWN_NETWORK_RISKS_URL,
 } from './urls';
 
 describe('URL Constants', () => {
@@ -81,6 +83,16 @@ describe('URL Constants', () => {
       expect(HOW_TO_MANAGE_METRAMETRICS_SETTINGS).toContain(
         'utm_source=mobile_app',
       );
+    });
+
+    it('includes utm_source=mobile_app in CUSTOM_NETWORKS_GUIDE_URL', () => {
+      expect(CUSTOM_NETWORKS_GUIDE_URL).toContain('support.metamask.io');
+      expect(CUSTOM_NETWORKS_GUIDE_URL).toContain('utm_source=mobile_app');
+    });
+
+    it('includes utm_source=mobile_app in UNKNOWN_NETWORK_RISKS_URL', () => {
+      expect(UNKNOWN_NETWORK_RISKS_URL).toContain('support.metamask.io');
+      expect(UNKNOWN_NETWORK_RISKS_URL).toContain('utm_source=mobile_app');
     });
   });
 
