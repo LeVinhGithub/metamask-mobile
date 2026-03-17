@@ -54,7 +54,7 @@ CURRENT_BRANCH=$(git branch --show-current)
 git stash push -u -m "visual-regression-pr-{PR_NUMBER}-autostash"
 ```
 
-Record whether a stash was created (non-zero output = stash created, "No local changes" = no stash).
+Record whether a stash was created by inspecting the command output or stash list (e.g., output contains "Saved working directory" = stash created; "No local changes to save" = no stash).
 
 ### Step 1d — Create temp dirs
 
@@ -303,7 +303,6 @@ cp /tmp/vr-pr-{PR_NUMBER}/before/*.png $WORKTREE/pr-{PR_NUMBER}/before/
 cp /tmp/vr-pr-{PR_NUMBER}/after/*.png  $WORKTREE/pr-{PR_NUMBER}/after/
 
 # Commit and push
-cd $WORKTREE
 git add pr-{PR_NUMBER}/
 git commit --author="georgewrmarshall <george.marshall@consensys.net>" -m "chore: visual regression screenshots for PR #{PR_NUMBER}"
 git push origin screenshots/visual-regression

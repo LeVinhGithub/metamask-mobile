@@ -73,7 +73,7 @@ Repeat the sub-sequence below for every file in the target list.
 Convert the relative file path to a flat filename by replacing every `/` with `_`:
 
 - `app/components/UI/Card/components/CardMessageBox/CardMessageBox.tsx`
-  → `CardMessageBox.tsx.png`
+  → `app_components_UI_Card_components_CardMessageBox_CardMessageBox.tsx.png`
 
 Save path: `~/Desktop/mmds-text-migration-<date>/after/<derived-filename>`
 
