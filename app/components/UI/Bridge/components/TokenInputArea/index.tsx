@@ -19,9 +19,7 @@ import { selectCurrentCurrency } from '../../../../../selectors/currencyRateCont
 import { BigNumber } from 'ethers';
 import { BridgeToken } from '../../types';
 import { Skeleton } from '../../../../../component-library/components-temp/Skeleton';
-import Button, {
-  ButtonVariants,
-} from '../../../../../component-library/components/Buttons/Button';
+import { Button, ButtonVariant } from '@metamask/design-system-react-native';
 import { strings } from '../../../../../../locales/i18n';
 import Routes from '../../../../../constants/navigation/Routes';
 import { useNavigation } from '@react-navigation/native';
@@ -292,15 +290,16 @@ export const TokenInputArea = forwardRef<
               />
             ) : (
               <Button
-                variant={ButtonVariants.Primary}
-                label={strings(tokenButtonText)}
+                variant={ButtonVariant.Primary}
                 onPress={
                   isSourceToken
                     ? navigateToSourceTokenSelector
                     : navigateToDestTokenSelector
                 }
                 testID={testID}
-              />
+              >
+                {strings(tokenButtonText)}
+              </Button>
             )}
           </Box>
           <Box style={styles.row}>
@@ -339,12 +338,13 @@ export const TokenInputArea = forwardRef<
                     onMaxPress &&
                     shouldShowMaxButton && (
                       <Button
-                        variant={ButtonVariants.Link}
-                        label={strings('bridge.max')}
+                        variant={ButtonVariant.Tertiary}
                         onPress={onMaxPress}
-                        disabled={!subtitle}
+                        isDisabled={!subtitle}
                         testID="token-input-area-max-button"
-                      />
+                      >
+                        {strings('bridge.max')}
+                      </Button>
                     )}
                 </Box>
               </>
