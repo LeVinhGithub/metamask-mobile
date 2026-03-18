@@ -531,7 +531,7 @@ describe('AppInformation', () => {
         { state: MOCK_STATE },
       );
 
-      expect(getByText('Visit our support center')).toBeTruthy();
+      expect(getByText('Visit our support center')).toBeOnTheScreen();
     });
 
     it('renders contact us link', () => {
@@ -541,7 +541,7 @@ describe('AppInformation', () => {
         { state: MOCK_STATE },
       );
 
-      expect(getByText('Contact us')).toBeTruthy();
+      expect(getByText('Contact us')).toBeOnTheScreen();
     });
   });
 });
