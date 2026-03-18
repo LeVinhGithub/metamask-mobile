@@ -38,7 +38,7 @@ gh pr list --search "refactor: migrate Text in:title" --state open --json number
 For each PR, check if it already has a visual regression comment:
 
 ```bash
-gh api repos/{owner}/{repo}/issues/{PR_NUMBER}/comments --jq '.[] | select(.body | startswith("## Visual Regression Screenshots")) | .id'
+gh api repos/{owner}/{repo}/pulls/{PR_NUMBER}/comments --jq '.[] | select(.body | startswith("### Before / After")) | .id'
 ```
 
 If a comment ID is returned, skip that PR (already processed). Collect the remaining PRs as `TARGET_PRS`.
