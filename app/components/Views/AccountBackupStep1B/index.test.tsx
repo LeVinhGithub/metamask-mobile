@@ -205,7 +205,7 @@ describe('AccountBackupStep1B', () => {
       expect(mockNav.navigate).toHaveBeenCalledWith('Webview', {
         screen: 'SimpleWebview',
         params: {
-          url: 'https://support.metamask.io/privacy-and-security/basic-safety-and-security-tips-for-metamask/',
+          url: 'https://support.metamask.io/privacy-and-security/basic-safety-and-security-tips-for-metamask/?utm_source=mobile_app',
           title: strings('drawer.metamask_support'),
         },
       });
