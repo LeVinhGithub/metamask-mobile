@@ -44,17 +44,20 @@ export function useTransactionPayPostQuote(): void {
       const { TransactionPayController } = Engine.context;
       const from = transactionMeta?.txParams?.from as Hex | undefined;
 
-      // Perps withdrawals go HyperCore -> Relay directly (no Safe proxy).
       // Predict withdrawals refund to the Safe proxy address.
+      // Perps withdrawals don't use refundTo -- funds go HyperCore -> Relay directly.
       const refundTo = isPerpsWithdraw
-        ? from
+        ? undefined
         : from
           ? computeProxyAddress(from)
           : undefined;
 
       TransactionPayController.setTransactionConfig(transactionId, (config) => {
         config.isPostQuote = true;
-        config.refundTo = refundTo;
+
+        if (refundTo) {
+          config.refundTo = refundTo;
+        }
 
         if (isPerpsWithdraw) {
           config.isHyperliquidSource = true;
