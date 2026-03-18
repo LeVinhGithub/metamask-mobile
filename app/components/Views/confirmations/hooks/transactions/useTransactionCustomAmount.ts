@@ -13,15 +13,13 @@ import { useParams } from '../../../../../util/navigation/navUtils';
 import { debounce } from 'lodash';
 import { hasTransactionType } from '../../utils/transaction';
 import { usePredictBalance } from '../../../../UI/Predict/hooks/usePredictBalance';
-import { usePerpsLiveAccount } from '../../../../UI/Perps/hooks/stream/usePerpsLiveAccount';
-import { parseCurrencyString } from '../../../../UI/Perps/utils/formatUtils';
+import Engine from '../../../../../core/Engine';
 import {
   useTransactionPayIsMaxAmount,
   useTransactionPayTotals,
 } from '../pay/useTransactionPayData';
 import { useTransactionPayHasSourceAmount } from '../pay/useTransactionPayHasSourceAmount';
 import { useConfirmationMetricEvents } from '../metrics/useConfirmationMetricEvents';
-import Engine from '../../../../../core/Engine';
 
 export const MAX_LENGTH = 28;
 const DEBOUNCE_DELAY = 500;
@@ -195,18 +193,15 @@ function useTokenBalance(tokenUsdRate: number) {
   ).toNumber();
 
   const { data: predictBalanceHuman = 0 } = usePredictBalance();
-  const { account: perpsAccount } = usePerpsLiveAccount();
 
   const predictBalanceUsd = new BigNumber(predictBalanceHuman ?? '0')
     .multipliedBy(tokenUsdRate)
     .toNumber();
 
-  const perpsBalanceUsd = perpsAccount?.availableBalance
-    ? parseCurrencyString(perpsAccount.availableBalance)
-    : 0;
-
   if (hasTransactionType(transactionMeta, [TransactionType.perpsWithdraw])) {
-    return perpsBalanceUsd;
+    const perpsState = Engine.context.PerpsController?.state;
+    const availableBalance = perpsState?.accountState?.availableBalance;
+    return availableBalance ? parseFloat(availableBalance) : 0;
   }
 
   return hasTransactionType(transactionMeta, [TransactionType.predictWithdraw])
