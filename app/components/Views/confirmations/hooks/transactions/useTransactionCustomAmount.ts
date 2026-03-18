@@ -13,6 +13,8 @@ import { useParams } from '../../../../../util/navigation/navUtils';
 import { debounce } from 'lodash';
 import { hasTransactionType } from '../../utils/transaction';
 import { usePredictBalance } from '../../../../UI/Predict/hooks/usePredictBalance';
+import { usePerpsLiveAccount } from '../../../../UI/Perps/hooks/stream/usePerpsLiveAccount';
+import { parseCurrencyString } from '../../../../UI/Perps/utils/formatUtils';
 import {
   useTransactionPayIsMaxAmount,
   useTransactionPayTotals,
@@ -193,10 +195,19 @@ function useTokenBalance(tokenUsdRate: number) {
   ).toNumber();
 
   const { data: predictBalanceHuman = 0 } = usePredictBalance();
+  const { account: perpsAccount } = usePerpsLiveAccount();
 
   const predictBalanceUsd = new BigNumber(predictBalanceHuman ?? '0')
     .multipliedBy(tokenUsdRate)
     .toNumber();
+
+  const perpsBalanceUsd = perpsAccount?.availableBalance
+    ? parseCurrencyString(perpsAccount.availableBalance)
+    : 0;
+
+  if (hasTransactionType(transactionMeta, [TransactionType.perpsWithdraw])) {
+    return perpsBalanceUsd;
+  }
 
   return hasTransactionType(transactionMeta, [TransactionType.predictWithdraw])
     ? predictBalanceUsd

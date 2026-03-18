@@ -129,10 +129,12 @@ function Tooltip({
     hasTransactionType(transactionMeta, [
       TransactionType.predictDeposit,
       TransactionType.predictWithdraw,
+      TransactionType.perpsWithdraw,
     ])
   ) {
     message = hasTransactionType(transactionMeta, [
       TransactionType.predictWithdraw,
+      TransactionType.perpsWithdraw,
     ])
       ? strings('confirm.tooltip.predict_withdraw.transaction_fee')
       : strings('confirm.tooltip.predict_deposit.transaction_fee');
