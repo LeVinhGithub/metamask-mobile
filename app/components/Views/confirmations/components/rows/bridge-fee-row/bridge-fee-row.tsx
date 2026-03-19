@@ -67,11 +67,16 @@ function TransactionFeeRow({
   const feeTotalUsd = useMemo(() => {
     if (!totals?.fees) return '';
 
+    const metaMask = totals.fees.metaMask.usd ?? 0;
+    const provider = totals.fees.provider.usd;
+    const sourceNetwork = totals.fees.sourceNetwork.estimate.usd;
+    const targetNetwork = totals.fees.targetNetwork.usd;
+
     return formatFiat(
-      new BigNumber(totals.fees.metaMask.usd ?? 0)
-        .plus(totals.fees.provider.usd)
-        .plus(totals.fees.sourceNetwork.estimate.usd)
-        .plus(totals.fees.targetNetwork.usd),
+      new BigNumber(metaMask)
+        .plus(provider)
+        .plus(sourceNetwork)
+        .plus(targetNetwork),
     );
   }, [totals, formatFiat]);
 

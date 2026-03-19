@@ -231,6 +231,7 @@ function getMetamaskPayTargetFiat(tx, decimals) {
 // user-currency fiat from the USD targetFiat stored in metamaskPay.
 function getPostQuoteDisplay(tx, currentCurrency) {
   const { metamaskPay } = tx ?? {};
+
   if (
     !hasTransactionType(tx, [
       TransactionType.predictWithdraw,
@@ -1054,6 +1055,7 @@ export default async function decodeTransaction(args) {
     switch (actionKey) {
       case strings('transactions.tx_review_musd_conversion'):
       case strings('transactions.tx_review_perps_deposit'):
+      case strings('transactions.tx_review_perps_withdraw'):
       case strings('transactions.tx_review_predict_deposit'):
       case strings('transactions.tx_review_predict_withdraw'):
         [transactionElement, transactionDetails] = await decodeTransferTx({
