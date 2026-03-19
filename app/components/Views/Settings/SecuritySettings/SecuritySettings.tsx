@@ -41,10 +41,14 @@ import Text, {
   TextVariant,
   TextColor,
 } from '../../../../component-library/components/Texts/Text';
-import Button, {
-  ButtonVariants,
+import {
+  Button,
+  ButtonVariant,
   ButtonSize,
-  ButtonWidthTypes,
+} from '@metamask/design-system-react-native';
+import OldButton, {
+  ButtonVariants,
+  ButtonSize as OldButtonSize,
 } from '../../../../component-library/components/Buttons/Button';
 import BasicFunctionalityComponent from '../../../UI/BasicFunctionality/BasicFunctionality';
 import Routes from '../../../../constants/navigation/Routes';
@@ -233,12 +237,13 @@ const Settings: React.FC = () => {
       </Text>
       <View style={styles.accessory}>
         <Button
-          variant={ButtonVariants.Secondary}
+          variant={ButtonVariant.Secondary}
           size={ButtonSize.Lg}
-          width={ButtonWidthTypes.Full}
-          label={strings('app_settings.manage_sdk_connections_title')}
+          isFullWidth
           onPress={goToSDKSessionManager}
-        />
+        >
+          {strings('app_settings.manage_sdk_connections_title')}
+        </Button>
       </View>
     </View>
   );
@@ -261,13 +266,14 @@ const Settings: React.FC = () => {
       </Text>
       <View style={styles.accessory}>
         <Button
-          variant={ButtonVariants.Secondary}
+          variant={ButtonVariant.Secondary}
           size={ButtonSize.Lg}
-          width={ButtonWidthTypes.Full}
-          label={strings('app_settings.clear_browser_history_desc')}
+          isFullWidth
           onPress={toggleClearBrowserHistoryModal}
           isDisabled={browserHistory.length === 0}
-        />
+        >
+          {strings('app_settings.clear_browser_history_desc')}
+        </Button>
       </View>
     </View>
   );
@@ -329,9 +335,9 @@ const Settings: React.FC = () => {
           style={styles.desc}
         >
           {strings('app_settings.simulation_details_description')}
-          <Button
+          <OldButton
             variant={ButtonVariants.Link}
-            size={ButtonSize.Auto}
+            size={OldButtonSize.Auto}
             onPress={() => {
               Linking.openURL(SIMULATION_DETALS_ARTICLE_URL);
               trackEvent(
