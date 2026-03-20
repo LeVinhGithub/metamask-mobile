@@ -3137,17 +3137,6 @@ export const FEATURE_FLAG_REGISTRY: Record<string, FeatureFlagRegistryEntry> = {
     status: FeatureFlagStatus.Active,
   },
 
-  predictWithAnyToken: {
-    name: 'predictWithAnyToken',
-    type: FeatureFlagType.Remote,
-    inProd: true,
-    productionDefault: {
-      minimumVersion: '0.0.0',
-      enabled: false,
-    },
-    status: FeatureFlagStatus.Active,
-  },
-
   predictGtmOnboardingModalEnabled: {
     name: 'predictGtmOnboardingModalEnabled',
     type: FeatureFlagType.Remote,
@@ -3212,6 +3201,17 @@ export const FEATURE_FLAG_REGISTRY: Record<string, FeatureFlagRegistryEntry> = {
     productionDefault: {
       enabled: true,
       minimumVersion: '7.60.0',
+    },
+    status: FeatureFlagStatus.Active,
+  },
+
+  predictWithAnyToken: {
+    name: 'predictWithAnyToken',
+    type: FeatureFlagType.Remote,
+    inProd: true,
+    productionDefault: {
+      minimumVersion: '0.0.0',
+      enabled: false,
     },
     status: FeatureFlagStatus.Active,
   },
