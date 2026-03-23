@@ -10,6 +10,7 @@ import {
   SeasonWayToEarnDto,
   CampaignDto,
   CampaignParticipantStatusDto,
+  CampaignPortfolioDto,
 } from '../../core/Engine/controllers/rewards-controller/types';
 import { OnboardingStep } from './types';
 import { AccountGroupId } from '@metamask/account-api';
@@ -124,6 +125,9 @@ export interface RewardsState {
   // Campaign participant status (keyed by campaignId)
   campaignParticipantStatuses: Record<string, CampaignParticipantStatusDto>;
 
+  // Campaign portfolio (keyed by campaignId)
+  campaignPortfolios: Record<string, CampaignPortfolioDto>;
+
   // Version guard state
   versionGuardMinimumMobileVersion: string | null;
   versionGuardLoading: boolean;
@@ -197,6 +201,9 @@ export const initialState: RewardsState = {
 
   // Campaign participant statuses initial state
   campaignParticipantStatuses: {},
+
+  // Campaign portfolio initial state
+  campaignPortfolios: {},
 
   // Version guard initial state
   versionGuardMinimumMobileVersion: null,
@@ -453,7 +460,7 @@ const rewardsSlice = createSlice({
 
     // Campaigns reducers
     setCampaigns: (state, action: PayloadAction<CampaignDto[]>) => {
-      state.campaigns = action.payload;
+      state.campaigns = action.payload as typeof state.campaigns;
       state.campaignsError = false;
     },
     setCampaignsLoading: (state, action: PayloadAction<boolean>) => {
@@ -475,6 +482,18 @@ const rewardsSlice = createSlice({
     ) => {
       state.campaignParticipantStatuses[action.payload.campaignId] =
         action.payload.status;
+    },
+
+    // Campaign portfolio reducers
+    setCampaignPortfolio: (
+      state,
+      action: PayloadAction<{
+        campaignId: string;
+        portfolio: CampaignPortfolioDto;
+      }>,
+    ) => {
+      state.campaignPortfolios[action.payload.campaignId] =
+        action.payload.portfolio;
     },
 
     // Version guard reducers
@@ -593,6 +612,7 @@ const rewardsSlice = createSlice({
             campaigns: action.payload.rewards.campaigns,
             campaignParticipantStatuses:
               action.payload.rewards.campaignParticipantStatuses,
+            campaignPortfolios: action.payload.rewards.campaignPortfolios,
             hideUnlinkedAccountsBanner:
               action.payload.rewards.hideUnlinkedAccountsBanner,
             hideCurrentAccountNotOptedInBanner:
@@ -651,6 +671,8 @@ export const {
   setCampaignsLoading,
   setCampaignsError,
   setCampaignParticipantStatus,
+  // Campaign portfolio actions
+  setCampaignPortfolio,
   // Version guard actions
   setVersionGuardMinimumMobileVersion,
   setVersionGuardLoading,

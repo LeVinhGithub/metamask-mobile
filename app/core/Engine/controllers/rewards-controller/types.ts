@@ -209,6 +209,98 @@ export type CampaignParticipantStatusState = {
   lastFetched: number;
 };
 
+/**
+ * Individual position in the campaign portfolio
+ */
+export interface CampaignPortfolioPositionDto {
+  /** Token symbol @example "AAPLon" */
+  tokenSymbol: string;
+  /** Token name @example "Apple Inc." */
+  tokenName: string;
+  /**
+   * All chains where user holds this asset, in CAIP-19 format
+   * @example ["eip155:1/erc20:0x1234...", "eip155:137/erc20:0x1234..."]
+   */
+  tokenAddresses: CaipAssetType[];
+  /** Human-readable units (not wei) @example "45.2" */
+  units: string;
+  /** Total USD cost of current position @example "9040.00" */
+  costBasis: string;
+  /** costBasis / units @example "200.00" */
+  avgCostPerUnit: string;
+  /** Live price per unit @example "215.50" */
+  currentPrice: string;
+  /** units × currentPrice @example "9740.60" */
+  currentValue: string;
+  /** currentValue - costBasis @example "700.60" */
+  unrealizedPnl: string;
+  /** (currentValue - costBasis) / costBasis, decimal ratio @example "0.0775" */
+  unrealizedPnlPercent: string;
+}
+
+/**
+ * Aggregate portfolio summary
+ */
+export interface CampaignPortfolioSummaryDto {
+  /** Sum of all position currentValues */
+  totalCurrentValue: string;
+  /** Sum of all position costBases */
+  totalCostBasis: string;
+  /** From ledger summary — only ever increases */
+  totalUsdDeposited: string;
+  /** Deposits minus cost-basis-valued withdrawals */
+  netDeposit: string;
+  /** totalCurrentValue - totalUsdDeposited */
+  portfolioPnl: string;
+  /** (totalCurrentValue / totalUsdDeposited) - 1, decimal ratio */
+  portfolioPnlPercent: string;
+}
+
+/**
+ * Campaign portfolio response DTO
+ * GET /campaigns/:campaignId/portfolio/me
+ */
+export interface CampaignPortfolioDto {
+  /** Individual positions sorted by currentValue descending */
+  positions: CampaignPortfolioPositionDto[];
+  /** Aggregate portfolio summary, null when user has no positions */
+  summary: CampaignPortfolioSummaryDto | null;
+  /** ISO 8601 timestamp when computed */
+  computedAt: string;
+}
+
+/**
+ * Cached state for campaign portfolio (JSON-serializable for Redux persistence)
+ */
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export type CampaignPortfolioState = {
+  portfolio: {
+    positions: {
+      tokenSymbol: string;
+      tokenName: string;
+      /** CAIP-19 asset identifiers stored as plain strings for JSON serialization */
+      tokenAddresses: string[];
+      units: string;
+      costBasis: string;
+      avgCostPerUnit: string;
+      currentPrice: string;
+      currentValue: string;
+      unrealizedPnl: string;
+      unrealizedPnlPercent: string;
+    }[];
+    summary: {
+      totalCurrentValue: string;
+      totalCostBasis: string;
+      totalUsdDeposited: string;
+      netDeposit: string;
+      portfolioPnl: string;
+      portfolioPnlPercent: string;
+    } | null;
+    computedAt: string;
+  };
+  lastFetched: number;
+};
+
 export interface OndoCampaignStep {
   title: string;
   description: string;
@@ -1235,6 +1327,9 @@ export type RewardsControllerState = {
   campaignParticipantStatus: {
     [compositeId: string]: CampaignParticipantStatusState;
   };
+  campaignPortfolio: {
+    [compositeId: string]: CampaignPortfolioState;
+  };
   /**
    * History of points estimates for Customer Support diagnostics.
    * Stores the last N successful estimates to verify user-reported discrepancies.
@@ -1612,6 +1707,17 @@ export interface RewardsControllerGetCampaignParticipantStatusAction {
 }
 
 /**
+ * Action for getting the campaign portfolio for the current user
+ */
+export interface RewardsControllerGetCampaignPortfolioAction {
+  type: 'RewardsController:getCampaignPortfolio';
+  handler: (
+    campaignId: string,
+    subscriptionId: string,
+  ) => Promise<CampaignPortfolioDto>;
+}
+
+/**
  * Action for getting CAIP-10 accounts linked to a subscription that are not on this device
  */
 export interface RewardsControllerGetOffDeviceSubscriptionAccountsAction {
@@ -1731,6 +1837,7 @@ export type RewardsControllerActions =
   | RewardsControllerGetCampaignsAction
   | RewardsControllerOptInToCampaignAction
   | RewardsControllerGetCampaignParticipantStatusAction
+  | RewardsControllerGetCampaignPortfolioAction
   | RewardsControllerGetOffDeviceSubscriptionAccountsAction
   | RewardsControllerClaimRewardAction
   | RewardsControllerGetSeasonOneLineaRewardTokensAction

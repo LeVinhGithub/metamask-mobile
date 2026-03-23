@@ -27,6 +27,7 @@ import type {
   ApplyBonusCodeDto,
   CampaignDto,
   CampaignParticipantStatusDto,
+  CampaignPortfolioDto,
   ClientVersionRequirementDto,
 } from '../types';
 import { getSubscriptionToken } from '../utils/multi-subscription-token-vault';
@@ -215,6 +216,11 @@ export interface RewardsDataServiceGetCampaignParticipantStatusAction {
   handler: RewardsDataService['getCampaignParticipantStatus'];
 }
 
+export interface RewardsDataServiceGetCampaignPortfolioAction {
+  type: `${typeof SERVICE_NAME}:getCampaignPortfolio`;
+  handler: RewardsDataService['getCampaignPortfolio'];
+}
+
 export interface RewardsDataServiceGetClientVersionRequirementsAction {
   type: `${typeof SERVICE_NAME}:getClientVersionRequirements`;
   handler: RewardsDataService['getClientVersionRequirements'];
@@ -272,6 +278,7 @@ export type RewardsDataServiceActions =
   | RewardsDataServiceGetCampaignsAction
   | RewardsDataServiceOptInToCampaignAction
   | RewardsDataServiceGetCampaignParticipantStatusAction
+  | RewardsDataServiceGetCampaignPortfolioAction
   | RewardsDataServiceGetClientVersionRequirementsAction;
 
 export type RewardsDataServiceMessenger = Messenger<
@@ -418,6 +425,10 @@ export class RewardsDataService {
     this.#messenger.registerActionHandler(
       `${SERVICE_NAME}:getCampaignParticipantStatus`,
       this.getCampaignParticipantStatus.bind(this),
+    );
+    this.#messenger.registerActionHandler(
+      `${SERVICE_NAME}:getCampaignPortfolio`,
+      this.getCampaignPortfolio.bind(this),
     );
     this.#messenger.registerActionHandler(
       `${SERVICE_NAME}:getRewardsEnvUrl`,
@@ -1332,6 +1343,11 @@ export class RewardsDataService {
     );
 
     if (!response.ok) {
+      if (response.status === 401) {
+        throw new AuthorizationFailedError(
+          'Rewards authorization failed. Please login and try again.',
+        );
+      }
       throw new Error(`Get campaigns failed: ${response.status}`);
     }
 
@@ -1383,11 +1399,45 @@ export class RewardsDataService {
     );
 
     if (!response.ok) {
+      if (response.status === 401) {
+        throw new AuthorizationFailedError(
+          'Rewards authorization failed. Please login and try again.',
+        );
+      }
       throw new Error(
         `Get campaign participant status failed: ${response.status}`,
       );
     }
 
     return (await response.json()) as CampaignParticipantStatusDto;
+  }
+
+  /**
+   * Get the campaign portfolio for the current user.
+   * Returns real-time per-position P&L data with live prices.
+   * @param subscriptionId - The subscription ID for authentication.
+   * @param campaignId - The campaign ID to get portfolio for.
+   * @returns The campaign portfolio with positions and summary (tokenAddresses in CAIP-19 format).
+   */
+  async getCampaignPortfolio(
+    subscriptionId: string,
+    campaignId: string,
+  ): Promise<CampaignPortfolioDto> {
+    const response = await this.makeRequest(
+      `/campaigns/${campaignId}/portfolio/me`,
+      { method: 'GET' },
+      subscriptionId,
+    );
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new AuthorizationFailedError(
+          'Rewards authorization failed. Please login and try again.',
+        );
+      }
+      throw new Error(`Get campaign portfolio failed: ${response.status}`);
+    }
+
+    return (await response.json()) as CampaignPortfolioDto;
   }
 }

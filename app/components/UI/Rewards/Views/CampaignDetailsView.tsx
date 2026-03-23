@@ -16,7 +16,9 @@ import ErrorBoundary from '../../../Views/ErrorBoundary';
 import CampaignStatus from '../components/Campaigns/CampaignStatus';
 import CampaignHowItWorks from '../components/Campaigns/CampaignHowItWorks';
 import CampaignOptInSheet from '../components/Campaigns/CampaignOptInSheet';
+import RewardsCampaignPortfolio from '../components/Campaigns/RewardsCampaignPortfolio';
 import RewardsErrorBanner from '../components/RewardsErrorBanner';
+import { CampaignType } from '../../../../core/Engine/controllers/rewards-controller/types';
 import { useGetCampaignParticipantStatus } from '../hooks/useGetCampaignParticipantStatus';
 import { useRewardCampaigns } from '../hooks/useRewardCampaigns';
 import { strings } from '../../../../../locales/i18n';
@@ -121,6 +123,11 @@ const CampaignDetailsView: React.FC = () => {
                   </Box>
                 </>
               )}
+
+              {participantStatus?.optedIn === true &&
+                campaign.type === CampaignType.ONDO_HOLDING && (
+                  <RewardsCampaignPortfolio campaignId={campaignId} />
+                )}
             </>
           )}
         </ScrollView>
