@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Text, {
   TextColor,
@@ -45,7 +45,7 @@ import { toDateFormat } from '../../../../../util/date';
 import TagColored, {
   TagColor,
 } from '../../../../../component-library/components-temp/TagColored';
-// import { renderShortAddress } from '../../../../../util/address';
+import { getSourceAmountBaseUnitFromBridgeSwapQuote } from '../../utils/quoteUtils';
 
 const styles = StyleSheet.create({
   detailRow: {
@@ -227,8 +227,12 @@ export const BridgeTransactionDetails = (
     chainId: sourceChainId,
   };
 
+  const sourceAmount = useMemo(
+    () => getSourceAmountBaseUnitFromBridgeSwapQuote(quote),
+    [quote],
+  );
   const sourceTokenAmount = calcTokenAmount(
-    quote.srcTokenAmount,
+    sourceAmount,
     quote.srcAsset.decimals,
   ).toFixed(5);
 

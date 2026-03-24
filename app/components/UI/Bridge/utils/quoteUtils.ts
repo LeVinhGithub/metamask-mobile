@@ -1,8 +1,10 @@
 import {
   formatChainIdToCaip,
   FeatureFlagsPlatformConfig,
+  Quote,
 } from '@metamask/bridge-controller';
 import type { BridgeToken } from '../types';
+import { isZeroAddress } from 'ethereumjs-util';
 
 const DEFAULT_REFRESH_RATE = 30 * 1000; // 30 seconds
 
@@ -67,3 +69,31 @@ export const isQuoteExpired = (
     !isQuoteGoingToRefresh && quotesLastFetchedMs && isGreaterThanRefreshRate,
   );
 };
+
+/**
+ * Determines the actual source amount of a bridge/swap transaction, taking in account the case
+ * where the sent amount if the native token and the fee is paid with that same native token.
+ * @param quote - The bridge of the bridge/swap transaction
+ * @returns string - The base unit source amount. Ex: 87500000000000000
+ */
+export function getSourceAmountBaseUnitFromBridgeSwapQuote(
+  quote: Quote,
+): string {
+  let sourceAmountBaseUnit = quote.srcTokenAmount;
+  // In the specific gas of a bridge/swap involving the gas token as source token,
+  // the `quote.srcTokenAmount` value is incorrect because the MetMask fee is taken out from it.
+  // This consumer-side solution re-incorporates the MetaMask fee when it was paid directly from source token.
+  // Ex: Swapping 10 MON for USD would show as "9.9125 MON" in history because of the fee of 0.0875 MON.
+  // A cleaner solution would have to have 'quote.srcTokenAmount' containing the correct amount
+  // (but risks breaking existing components relying on that field), or create a new quote.originalSrcTokenAmount field.
+  if (
+    isZeroAddress(quote.srcAsset.address) &&
+    isZeroAddress(quote.feeData.metabridge.asset.address)
+  ) {
+    const sponsoredFeeAmount = quote.feeData.metabridge.amount || '0';
+    sourceAmountBaseUnit = (
+      BigInt(sourceAmountBaseUnit) + BigInt(sponsoredFeeAmount)
+    ).toString();
+  }
+  return sourceAmountBaseUnit;
+}
