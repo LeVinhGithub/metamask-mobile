@@ -486,7 +486,7 @@ describe('PerpsTPSLView', () => {
 
       const setButton = screen.getByText('perps.tpsl.set');
       // Button may be disabled, traverse up to find and invoke onPress directly
-      let node = setButton;
+      let node: typeof setButton | null = setButton;
       while (node && !node.props.onPress) {
         node = node.parent;
       }
@@ -512,7 +512,7 @@ describe('PerpsTPSLView', () => {
 
       const setButton = screen.getByText('perps.tpsl.set');
       // Button may be disabled, traverse up to find and invoke onPress directly
-      let node = setButton;
+      let node: typeof setButton | null = setButton;
       while (node && !node.props.onPress) {
         node = node.parent;
       }
