@@ -99,9 +99,7 @@ const NetworkVerificationInfo = ({
   }, [matchingPopularNetwork, customNetworkInformation.rpcUrl]);
 
   const goToLearnMore = () => {
-    Linking.openURL(
-      'https://support.metamask.io/networks-and-sidechains/managing-networks/verifying-custom-network-information/?utm_source=mobile_app',
-    );
+    Linking.openURL(ADD_CUSTOM_NETWORK_ARTCILE);
   };
 
   useEffect(() => setAlerts(alertsFromProps), [alertsFromProps]);
