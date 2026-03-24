@@ -702,7 +702,7 @@ describe('ChoosePassword', () => {
       expect(mockNavigation.navigate).toHaveBeenCalledWith('Webview', {
         screen: 'SimpleWebview',
         params: {
-          url: 'https://support.metamask.io/managing-my-wallet/resetting-deleting-and-restoring/how-can-i-reset-my-password/',
+          url: 'https://support.metamask.io/managing-my-wallet/resetting-deleting-and-restoring/how-can-i-reset-my-password/?utm_source=mobile_app',
           title: 'support.metamask.io',
         },
       });
@@ -1028,17 +1028,9 @@ describe('ChoosePassword', () => {
         expect(mockNewWalletAndKeychain).toHaveBeenCalledTimes(1);
         expect(spyUpdateMarketingOptInStatus).toHaveBeenCalledWith(false);
       });
-     
 
-      expect(mockNavigation.navigate).toHaveBeenCalledWith('Webview', {
-        screen: 'SimpleWebview',
-        params: {
-          url: 'https://support.metamask.io/managing-my-wallet/resetting-deleting-and-restoring/how-can-i-reset-my-password/?utm_source=mobile_app',
-          title: 'support.metamask.io',
-        },
-      });
-      
       mockNewWalletAndKeychain.mockRestore();
+    });
   });
 
   describe('Error Handling', () => {
