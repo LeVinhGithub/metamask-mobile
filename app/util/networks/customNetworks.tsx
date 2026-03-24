@@ -190,6 +190,18 @@ export const PopularList = [
       imageSource: require('../../images/megaeth-mainnet-logo.png'),
     },
   },
+  {
+    chainId: toHex('5000'),
+    nickname: 'Mantle',
+    rpcUrl: `https://mantle-mainnet.infura.io/v3/${infuraProjectId}`,
+    ticker: 'MNT',
+    warning: true,
+    rpcPrefs: {
+      blockExplorerUrl: 'https://mantlescan.xyz',
+      imageUrl: 'MNT',
+      imageSource: require('../../images/mantle.png'),
+    },
+  },
 ];
 
 /**
