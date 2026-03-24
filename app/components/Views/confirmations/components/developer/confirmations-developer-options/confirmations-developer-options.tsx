@@ -23,12 +23,11 @@ import { generateTransferData } from '../../../../../../util/transactions';
 import { useConfirmNavigation } from '../../../hooks/useConfirmNavigation';
 import { selectSelectedInternalAccountAddress } from '../../../../../../selectors/accountsController';
 import { RootState } from '../../../../../../reducers';
+import { ConfirmationsDeveloperOptionsTestIds } from './confirmations-developer-options.testIds';
+import { ARBITRUM_USDC } from '../../../constants/perps';
 
 const POLYGON_USDCE_ADDRESS =
   '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174' as Hex;
-
-const ARBITRUM_USDC_ADDRESS =
-  '0xaf88d065e77c8cC2239327C5EDb3A432268e5831' as Hex;
 
 // Update as needed.
 const PROXY_ADDRESS = '0x13032833b30f3388208cda38971fdc839936b042' as Hex;
@@ -41,26 +40,6 @@ export function ConfirmationsDeveloperOptions() {
       <PredictWithdraw />
       <PerpsWithdraw />
     </>
-  );
-}
-
-function PredictWithdraw() {
-  const { addTransactionBatchAndNavigate } = useAddTransactionBatch();
-
-  const handleWithdraw = useCallback(() => {
-    addTransactionBatchAndNavigate({
-      loader: ConfirmationLoader.CustomAmount,
-      transactionType: TransactionType.predictWithdraw,
-    });
-  }, [addTransactionBatchAndNavigate]);
-
-  return (
-    <DeveloperButton
-      title="Predict Withdraw"
-      description="Trigger a Predict withdraw confirmation."
-      buttonLabel="Withdraw"
-      onPress={handleWithdraw}
-    />
   );
 }
 
@@ -78,6 +57,27 @@ function PerpsWithdraw() {
     <DeveloperButton
       title="Perps Withdraw"
       description="Trigger a Perps withdraw confirmation."
+      buttonLabel="Withdraw"
+      onPress={handleWithdraw}
+      testID={ConfirmationsDeveloperOptionsTestIds.PERPS_WITHDRAW_BUTTON}
+    />
+  );
+}
+
+function PredictWithdraw() {
+  const { addTransactionBatchAndNavigate } = useAddTransactionBatch();
+
+  const handleWithdraw = useCallback(() => {
+    addTransactionBatchAndNavigate({
+      loader: ConfirmationLoader.CustomAmount,
+      transactionType: TransactionType.predictWithdraw,
+    });
+  }, [addTransactionBatchAndNavigate]);
+
+  return (
+    <DeveloperButton
+      title="Predict Withdraw"
+      description="Trigger a Predict withdraw confirmation."
       buttonLabel="Withdraw"
       onPress={handleWithdraw}
     />
@@ -198,7 +198,7 @@ function useAddPerpsTransactionBatch() {
     ) ?? {};
 
   const transferData = generateTransferData('transfer', {
-    toAddress: ARBITRUM_USDC_ADDRESS,
+    toAddress: ARBITRUM_USDC.address,
     amount: '0x0',
   }) as Hex;
 
@@ -224,7 +224,7 @@ function useAddPerpsTransactionBatch() {
         transactions: [
           {
             params: {
-              to: ARBITRUM_USDC_ADDRESS,
+              to: ARBITRUM_USDC.address,
               data: transferData,
             },
             type: transactionType,
@@ -246,11 +246,13 @@ function DeveloperButton({
   buttonLabel,
   description,
   onPress,
+  testID,
   title,
 }: {
   buttonLabel: string;
   description: string;
   onPress: () => void;
+  testID?: string;
   title: string;
 }) {
   const theme = useTheme();
@@ -277,6 +279,7 @@ function DeveloperButton({
         size={ButtonSize.Lg}
         label={buttonLabel}
         onPress={onPress}
+        testID={testID}
         width={ButtonWidthTypes.Full}
         style={styles.accessory}
       />
