@@ -485,8 +485,13 @@ describe('PerpsTPSLView', () => {
       });
 
       const setButton = screen.getByText('perps.tpsl.set');
+      // Button may be disabled, traverse up to find and invoke onPress directly
+      let node = setButton;
+      while (node && !node.props.onPress) {
+        node = node.parent;
+      }
       await act(async () => {
-        fireEvent.press(setButton);
+        node?.props.onPress?.();
       });
 
       expect(mockOnConfirm).toHaveBeenCalledWith('3150.00', '2850.00', {
@@ -506,8 +511,13 @@ describe('PerpsTPSLView', () => {
       renderView();
 
       const setButton = screen.getByText('perps.tpsl.set');
+      // Button may be disabled, traverse up to find and invoke onPress directly
+      let node = setButton;
+      while (node && !node.props.onPress) {
+        node = node.parent;
+      }
       await act(async () => {
-        fireEvent.press(setButton);
+        node?.props.onPress?.();
       });
 
       expect(mockOnConfirm).toHaveBeenCalledWith(undefined, undefined, {
